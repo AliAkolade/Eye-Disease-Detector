@@ -28,14 +28,16 @@ class MainWindow(Screen):
 
     def identify_url(self, url_given):
         if url_given:
+            self.ans.text = "Fetching Image from Url"
+            time.sleep(1)
             headers = {'accept': 'application/x-www-form-urlencoded'}
             data = {'modelId': '46d349af-85c1-46ee-bc70-330da2a736ee', 'urls': [self.url_entry.text]}
             response = requests.request('POST', url, headers=headers,
                                         auth=requests.auth.HTTPBasicAuth('5Ner4sKSl0ikoPQ074_35YoNk9JBX__W', ''),
                                         data=data)
             a = response.text.replace(
-                "{\"message\":\"Success\",\"result\":[{\"message\":\"Success\",\"prediction\":[{\"label\":\"",
-                "").split("\"")
+                "{\"message\":\"Success\",\"result\":[{\"message\":\"Success\",\"prediction\":[{\"label\":\"", "")\
+                .split("\"")
             label = a[0].replace("_", " ").title()
             self.ans.text = "Eye Defect - " + label
 
